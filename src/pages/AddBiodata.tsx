@@ -334,7 +334,7 @@ export default function AddBiodata() {
                 <div className="col-md-3 col-lg-2">
                     <Sidebar />
                 </div>
-                <main className="col-md-9 col-lg-10 ms-auto">
+                <main className="col-md-9 col-lg-10 mx-auto">
                     <div className="pt-3 pb-2 mb-3 border-bottom">
                         <h1 className="h2 px-4">Add Biodata</h1>
                     </div>

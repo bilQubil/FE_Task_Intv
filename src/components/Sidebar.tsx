@@ -3,9 +3,14 @@ import Swal from "sweetalert2";
 
 function Sidebar() {
     const navigate = useNavigate();
+    const userInfo = localStorage.getItem("user")
+        ? JSON.parse(localStorage.getItem("user") || "{}")
+        : {};
+    const isAdmin = userInfo.isAdmin;
 
     const handleLogout = () => {
         localStorage.removeItem("access_token");
+        localStorage.removeItem("user");
         Swal.fire({
             title: "Success",
             text: "Logout successful",
@@ -19,7 +24,7 @@ function Sidebar() {
         <div
             className="d-flex flex-column flex-shrink-0 p-3 bg-light"
             style={{
-                width: "280px",
+                width: "260px",
                 height: "100vh",
                 position: "fixed",
                 top: 0,
@@ -36,26 +41,45 @@ function Sidebar() {
             </NavLink>
             <hr />
             <ul className="nav nav-pills flex-column mb-auto">
-                <li className="nav-item">
-                    <NavLink
-                        to="/profile"
-                        className={({ isActive }) =>
-                            `nav-link ${isActive ? "active" : "link-dark"}`
-                        }
-                    >
-                        Profile
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                        to="/add-biodata"
-                        className={({ isActive }) =>
-                            `nav-link ${isActive ? "active" : "link-dark"}`
-                        }
-                    >
-                        Add Biodata
-                    </NavLink>
-                </li>
+                {isAdmin ? (
+                    <li className="nav-item">
+                        <NavLink
+                            to="/biodata"
+                            className={({ isActive }) =>
+                                `nav-link ${isActive ? "active" : "link-dark"}`
+                            }
+                        >
+                            Users Biodata
+                        </NavLink>
+                    </li>
+                ) : (
+                    <>
+                        <li className="nav-item">
+                            <NavLink
+                                to="/profile"
+                                className={({ isActive }) =>
+                                    `nav-link ${
+                                        isActive ? "active" : "link-dark"
+                                    }`
+                                }
+                            >
+                                Biodata
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to="/add-biodata"
+                                className={({ isActive }) =>
+                                    `nav-link ${
+                                        isActive ? "active" : "link-dark"
+                                    }`
+                                }
+                            >
+                                Add Biodata
+                            </NavLink>
+                        </li>
+                    </>
+                )}
             </ul>
             <hr />
             <div>

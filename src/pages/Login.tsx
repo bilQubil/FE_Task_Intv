@@ -4,38 +4,39 @@ import axios, { AxiosError } from "axios";
 import Swal from "sweetalert2";
 
 export default function Login() {
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-    });
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
 
         try {
-            const res = await axios.post("http://localhost:3000/auth/login", {
-                email: formData.email,
-                password: formData.password,
+            const response = await axios.post(
+                "http://localhost:3000/auth/login",
+                {
+                    email,
+                    password,
+                }
+            );
+
+            // Store access token and user info in localStorage
+            localStorage.setItem("access_token", response.data.access_token);
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+
+            Swal.fire({
+                title: "Success",
+                text: "Login successful",
+                icon: "success",
+                timer: 1500,
             });
-            if (res.data.message === "Login successful") {
-                Swal.fire({
-                    title: "Success",
-                    text: "Login successful",
-                    icon: "success",
-                    timer: 3000,
-                });
-                localStorage.setItem("access_token", res.data.access_token);
+
+            // Redirect based on user role
+            if (response.data.user.isAdmin) {
+                navigate("/biodata");
+            } else {
                 navigate("/profile");
             }
         } catch (error) {
@@ -44,9 +45,8 @@ export default function Login() {
                 title: "Error",
                 text:
                     (err.response?.data as { message: string })?.message ||
-                    "An error occurred",
+                    "Invalid email or password",
                 icon: "error",
-                timer: 3000,
             });
         } finally {
             setIsLoading(false);
@@ -61,7 +61,7 @@ export default function Login() {
                         <div className="card-body p-4">
                             <h2 className="text-center mb-4">Login</h2>
 
-                            <form onSubmit={handleSubmit}>
+                            <form onSubmit={handleLogin}>
                                 <div className="mb-3">
                                     <label
                                         htmlFor="email"
@@ -73,9 +73,10 @@ export default function Login() {
                                         type="email"
                                         className="form-control"
                                         id="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
+                                        value={email}
+                                        onChange={(e) =>
+                                            setEmail(e.target.value)
+                                        }
                                         required
                                         placeholder="Enter your email"
                                     />
@@ -92,9 +93,10 @@ export default function Login() {
                                         type="password"
                                         className="form-control"
                                         id="password"
-                                        name="password"
-                                        value={formData.password}
-                                        onChange={handleChange}
+                                        value={password}
+                                        onChange={(e) =>
+                                            setPassword(e.target.value)
+                                        }
                                         required
                                         placeholder="Enter your password"
                                     />
