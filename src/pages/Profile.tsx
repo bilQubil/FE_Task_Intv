@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-import axios, { AxiosError } from "axios";
-import Swal from "sweetalert2";
+import axios from "axios";
 
 type Biodata = {
     position: string;
@@ -103,15 +102,7 @@ export default function Profile() {
                 setJobHistories(jobResponse.data);
                 setTrainingHistories(trainingResponse.data);
             } catch (error) {
-                const err = error as AxiosError;
-                Swal.fire({
-                    title: "Error",
-                    text:
-                        (err.response?.data as { message: string })?.message ||
-                        "An error occurred",
-                    icon: "error",
-                    timer: 3000,
-                });
+                console.log(error);
             }
         }
 
@@ -169,7 +160,11 @@ export default function Profile() {
                                                             </strong>{" "}
                                                             {biodata.birthPlace}
                                                             ,{" "}
-                                                            {biodata.birthDate}
+                                                            {
+                                                                biodata.birthDate.split(
+                                                                    "T"
+                                                                )[0]
+                                                            }
                                                         </p>
                                                     </div>
                                                     <div className="col-md-6">

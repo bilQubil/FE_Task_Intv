@@ -7,6 +7,7 @@ import {
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import AddBiodata from "./pages/AddBiodata";
 
 function App() {
     const isLoggedIn = localStorage.getItem("access_token") !== null;
@@ -20,7 +21,13 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
                     {isLoggedIn && (
-                        <Route path="/profile" element={<Profile />} />
+                        <>
+                            <Route path="/profile" element={<Profile />} />
+                            <Route
+                                path="/add-biodata"
+                                element={<AddBiodata />}
+                            />
+                        </>
                     )}
                     <Route
                         path="/"
