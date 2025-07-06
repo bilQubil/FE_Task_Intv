@@ -255,10 +255,10 @@ export default function Profile() {
                                                             <strong>
                                                                 Expected Salary:
                                                             </strong>{" "}
-                                                            $
-                                                            {
-                                                                biodata.expectedSalary
-                                                            }
+                                                            Rp.
+                                                            {biodata.expectedSalary.toLocaleString(
+                                                                "id-ID"
+                                                            )}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -359,7 +359,10 @@ export default function Profile() {
                                                         <strong>
                                                             Last Salary:
                                                         </strong>{" "}
-                                                        ${job.lastSalary}
+                                                        Rp.
+                                                        {job.lastSalary.toLocaleString(
+                                                            "id-ID"
+                                                        )}
                                                     </p>
                                                     <p className="mb-1">
                                                         <strong>Year:</strong>{" "}
