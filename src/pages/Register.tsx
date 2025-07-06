@@ -36,7 +36,7 @@ export default function Register() {
                     title: "Success",
                     text: "User registered successfully",
                     icon: "success",
-                    timer: 1500,
+                    timer: 3000,
                 });
                 navigate("/login");
             }
@@ -45,10 +45,10 @@ export default function Register() {
             Swal.fire({
                 title: "Error",
                 text:
-                    (err.response?.data as { message: string })?.message ||
+                    (err.response?.data as { errors: string[] })?.errors[0] ||
                     "An error occurred",
                 icon: "error",
-                timer: 1500,
+                timer: 3000,
             });
         } finally {
             setIsLoading(false);

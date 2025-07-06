@@ -33,9 +33,10 @@ export default function Login() {
                     title: "Success",
                     text: "Login successful",
                     icon: "success",
-                    timer: 1500,
+                    timer: 3000,
                 });
-                navigate("/dashboard");
+                localStorage.setItem("access_token", res.data.access_token);
+                navigate("/profile");
             }
         } catch (error) {
             const err = error as AxiosError;
@@ -45,7 +46,7 @@ export default function Login() {
                     (err.response?.data as { message: string })?.message ||
                     "An error occurred",
                 icon: "error",
-                timer: 1500,
+                timer: 3000,
             });
         } finally {
             setIsLoading(false);
