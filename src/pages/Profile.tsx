@@ -102,7 +102,7 @@ export default function Profile() {
                 setJobHistories(jobResponse.data);
                 setTrainingHistories(trainingResponse.data);
             } catch (error) {
-                console.log(error);
+                console.error("Error fetching profile data:", error);
             }
         }
 

@@ -299,9 +299,6 @@ export default function AddBiodata() {
                 icon: "success",
                 timer: 3000,
             });
-
-            // Optional: Reset form or navigate
-            // navigate("/profile");
         } catch (error) {
             console.error("Error submitting biodata:", error);
 

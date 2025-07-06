@@ -130,7 +130,6 @@ export default function AdminBiodataId() {
                     headers: { Authorization: `Bearer ${token}` },
                 }
             );
-            console.log("Job response:", response.data);
 
             const jobData = Array.isArray(response.data) ? response.data : [];
             setUserData((prev) =>
@@ -153,7 +152,6 @@ export default function AdminBiodataId() {
                     headers: { Authorization: `Bearer ${token}` },
                 }
             );
-            console.log("Training response:", response.data);
 
             const trainingData = Array.isArray(response.data)
                 ? response.data
@@ -543,9 +541,6 @@ export default function AdminBiodataId() {
             </div>
         );
     }
-
-    // Debug: Log the current userData to console
-    console.log("Current userData:", userData);
 
     return (
         <div className="container-fluid p-0">

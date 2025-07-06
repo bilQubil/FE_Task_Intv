@@ -22,7 +22,6 @@ export default function Login() {
                 }
             );
 
-            // Store access token and user info in localStorage
             localStorage.setItem("access_token", response.data.access_token);
             localStorage.setItem("user", JSON.stringify(response.data.user));
 
@@ -33,7 +32,6 @@ export default function Login() {
                 timer: 1500,
             });
 
-            // Redirect based on user role
             if (response.data.user.isAdmin) {
                 navigate("/biodata");
             } else {
